@@ -6,9 +6,15 @@ const path = require('path')
 
 app.use(bodyParser.json())
 
-app.get('/', (request, response) => {
+/* app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, 'README.md'))
-})
+}) */
+
+//Index page (static HTML)
+app.route('/')
+  .get(function (req, res) {
+    res.sendFile(process.cwd() + '/views/index.html');
+  });
 
 app.post('/deploy', (request, response) => {
   if (request.query.secret !== process.env.SECRET) {
