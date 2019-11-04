@@ -9,13 +9,18 @@
 function ConvertHandler() {
 
   this.getNum = function (input) {
-    var result = parseInt(input.substring(0, input.search(/[\D\.\\]/)));
-    console.log(result);
+    var regex =
+      (/[-]?[0-9]+[,.]?[0-9]*([\/][0-9]+[,.]?[0-9]*)*/g);
+    if (input.match(/\d/)) {
+      // this works for all tests except no digits
+      var result = eval(input.match(regex)[0]);
+    } else result = null
+    console.log(`result = ${result}`);
     return result;
   }
 
   this.getUnit = function (input) {
-    var result = arseInt(input.substring(input.search(/\D/), 0));
+    var result = input.substring(input.search(/\D/), 0);
     console.log(result);
     return result;
   }

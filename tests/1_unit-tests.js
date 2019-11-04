@@ -42,13 +42,13 @@ suite('Unit Tests', function () {
 
     test('Invalid Input (double fraction)', function (done) {
       var input = '3/2/2.2L';
-      assert.equal(convertHandler.getNum(input), "??");
+      assert.equal(convertHandler.getNum(input), 3/2/2.2);
       done();
     });
 
     test('No Numerical Input', function (done) {
       var input = 'ten L';
-      assert.equal(convertHandler.getNum(input), NaN);
+      assert.equal(convertHandler.getNum(input), null);
       done();
     });
 
