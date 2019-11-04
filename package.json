@@ -1,5 +1,5 @@
 {
-  "name": "git-glitched",
+  "name": "delamoe-git-glitched",
   "version": "0.0.1",
   "description": "Deploy to Glitch using git.",
   "main": "server.js",
@@ -7,7 +7,15 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "cors": "^2.8.1",
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "mongodb": "^2.2.16",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0",
+    "zombie": "^5.0.5",
+    "helmet": "^3.1.0"
   },
   "engines": {
     "node": "8.x"
