@@ -57,7 +57,8 @@ app.post('/deploy', (request, response) => {
 })
 // **************************************************
 
-console.log(`NODE_ENV: `, process.env.NODE_ENV);
+process.env.NODE_ENV = 'test';
+// console.log(`NODE_ENV: `, process.env.NODE_ENV);
 
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
