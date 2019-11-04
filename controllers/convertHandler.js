@@ -8,17 +8,9 @@
 
 function ConvertHandler() {
   
-  this.getNum = function(input) {
-    var result;
-    
-    return result;
-  };
+  this.getNum = (input => parseInt(input.substring(0, input.search(/\D/))));
   
-  this.getUnit = function(input) {
-    var result;
-    
-    return result;
-  };
+  this.getUnit = (input => parseInt(input.substring(input.search(/\D/), 0)));
   
   this.getReturnUnit = function(initUnit) {
     var result;
