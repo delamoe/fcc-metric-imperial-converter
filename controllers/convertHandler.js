@@ -7,32 +7,52 @@
 */
 
 function ConvertHandler() {
+  this.sanitizeString = function (str) {
+    var regex = (/lbs|gal|mi|km|kg|l|[0-9\-\+\*\/\.]/gi);
+    str = str.match(regex).join('');
+    console.log(`sanitized str: `, str);
+    return str.trim();
+  }
 
   this.getNum = function (input) {
+    var sanitizedStr = this.sanitizeString(input);
     var regex =
-      (/[-]?[0-9]+[,.]?[0-9]*([\/][0-9]+[,.]?[0-9]*)*/g);
-    if (input.match(/\d/)) {
-      // this works for all tests except no digits
-      var result = eval(input.match(regex)[0]);
-    } else result = null
+      (/(?:[-\+]{0,1}\d*[-\+.\/*]*\d+)*/);
+    //check for a digit
+    var result = sanitizedStr.match(/\d/)
+      // if found, remove all non-math-related
+      // chars apply the dreaded eval: Mwahahahaahhaha
+      ? eval(sanitizedStr.match(regex)[0])
+      // if no digits
+      : 'Invalid Numerical Input';
     console.log(`result = ${result}`);
     return result;
   }
 
   this.getUnit = function (input) {
-    var result = input.substring(input.search(/\D/), 0);
-    console.log(result);
+    var sanitizedStr = this.sanitizeString(input);
+    var regex = (/lbs|gal|mi|km|kg|l/i);
+    // returns the first usable match
+    var result = sanitizedStr.match(regex) === null
+      ? "Invalid Character Input"
+      : sanitizedStr.match(regex)[0].toLowerCase();
+    console.log(`result = ${result}`);
     return result;
   }
   this.getReturnUnit = function (initUnit) {
-    var result;
+    var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
+    var output = ['l', 'gal', 'km', 'mi', 'kg', 'lbs'];
+
+    var result = output[input.indexOf(initUnit)];
 
     return result;
   };
 
   this.spellOutUnit = function (unit) {
-    var result;
+    var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
+    var output = ['gallon', 'liter', 'mile', 'kilometer', 'pound', 'kilogram'];
 
+    var result = output[input.indexOf(unit)];
     return result;
   };
 
@@ -40,7 +60,32 @@ function ConvertHandler() {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
+
     var result;
+    switch (initUnit) {
+      case 'gal':
+        result = initNum * galToL;     
+        break;
+      case 'l':
+        result = initNum / galToL;
+        break;
+      case 'mi':
+        result = initNum * miToKm;
+        break;
+      case 'km':
+        result = initNum / miToKm;
+        break;
+      case 'lbs':
+        result = initNum * lbsToKg;
+        break;
+      case 'kg':
+        result = initNum / lbsToKg;
+        break;  
+      default:
+        console.log(`switch says ${initUnit}`);
+        break;
+    }
+    console.log(`result = ${result}`);
 
     return result;
   };
