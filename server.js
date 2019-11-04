@@ -33,7 +33,7 @@ app.route('/')
   .get(function (req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
   });
-  
+// **************************************************
 // git-glitch sync code
 app.post('/deploy', (request, response) => {
   if (request.query.secret !== process.env.SECRET) {
@@ -55,8 +55,10 @@ app.post('/deploy', (request, response) => {
   console.log(output)
   response.status(200).send()
 })
-
+// **************************************************
 
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 })
+
+module.exports = app; //for testing
