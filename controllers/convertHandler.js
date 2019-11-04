@@ -8,7 +8,7 @@
 
 function ConvertHandler() {
   
-  this.getNum = (input => parseInt(input.substring(0, input.search(/\D/))));
+  this.getNum = (input => parseInt(input.substring(0, input.search(/[\D\.\\]/))));
   
   this.getUnit = (input => parseInt(input.substring(input.search(/\D/), 0)));
   
