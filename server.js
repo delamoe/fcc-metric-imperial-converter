@@ -59,6 +59,18 @@ app.post('/deploy', (request, response) => {
 
 const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
+  if(process.env.NODE_ENV==='test') {
+    console.log('Running Tests...');
+    setTimeout(function () {
+      try {
+        runner.run();
+      } catch(e) {
+        var error = e;
+          console.log('Tests are not valid:');
+          console.log(error);
+      }
+    }, 1500);
+  }
 })
 
 module.exports = app; //for testing
