@@ -47,30 +47,6 @@ app.use(function (req, res, next) {
     .send('Not Found');
 });
 
-
-// const listener = app.listen(process.env.PORT, function () {
-//   console.log('Your app is listening on port ' + listener.address().port);
-// })
-
-//Start our server and tests!
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Listening on port " + process.env.PORT);
-  if(process.env.NODE_ENV==='test') {
-    console.log('Running Tests...');
-    setTimeout(function () {
-      try {
-        runner.run();
-      } catch(e) {
-        var error = e;
-          console.log('Tests are not valid:');
-          console.log(error);
-      }
-    }, 1500);
-  }
-});
-
-module.exports = app; //for testing
-
 // git-glitch sync code ****************************
 app.post('/deploy', (request, response) => {
   if (request.query.secret !== process.env.SECRET) {
@@ -93,3 +69,26 @@ app.post('/deploy', (request, response) => {
   response.status(200).send()
 })
   // **************************************
+
+const listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+})
+
+//Start our server and tests!
+// app.listen(process.env.PORT || 3000, function () {
+//   console.log("Listening on port " + process.env.PORT);
+//   if(process.env.NODE_ENV==='test') {
+//     console.log('Running Tests...');
+//     setTimeout(function () {
+//       try {
+//         runner.run();
+//       } catch(e) {
+//         var error = e;
+//           console.log('Tests are not valid:');
+//           console.log(error);
+//       }
+//     }, 1500);
+//   }
+// });
+
+module.exports = app; //for testing
