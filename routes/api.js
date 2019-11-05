@@ -25,7 +25,6 @@ module.exports = function (app) {
       var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
       
       //res.json
-      // small comment to check push sync
     });
     
 };
