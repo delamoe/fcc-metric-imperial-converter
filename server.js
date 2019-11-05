@@ -25,34 +25,11 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
 
-// app routes here
-// **************************************************
-//Index page (static HTML)
-app.route('/')
-.get(function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
-
-//For FCC testing purposes
-fccTestingRoutes(app);
-
-//Routing for API 
-apiRoutes(app);
-
-//404 Not Found Middleware
-app.use(function (req, res, next) {
-  res.status(404)
-  .type('text')
-  .send('Not Found');
-});
-
-// **************************************************
-
 /* app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, 'README.md'))
 }) */
 
-// git-glitch sync code
+// git-glitch sync code KEEP ABOVE OTHER ROUTES
 // **************************************************
 app.post('/deploy', (request, response) => {
   if (request.query.secret !== process.env.SECRET) {
@@ -74,6 +51,29 @@ app.post('/deploy', (request, response) => {
   console.log(output)
   response.status(200).send()
 })
+// **************************************************
+
+// app routes here
+// **************************************************
+//Index page (static HTML)
+app.route('/')
+.get(function (req, res) {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
+//For FCC testing purposes
+fccTestingRoutes(app);
+
+//Routing for API 
+apiRoutes(app);
+
+//404 Not Found Middleware
+app.use(function (req, res, next) {
+  res.status(404)
+  .type('text')
+  .send('Not Found');
+});
+
 // **************************************************
 
 process.env.NODE_ENV = 'test';
