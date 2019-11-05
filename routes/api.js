@@ -25,7 +25,7 @@ module.exports = function (app) {
       var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
 
       if (convertHandler.sanitizeString(input) === null) res.json({"string": "Error - Invalid Qty & Unit"});
-      if (convertHandler.getNum(input) === "Invalid Quantity" && convertHandler.getUnit(input) === "Invalid Unit Type")  res.json({"string": "Error - Invalid Qty & Unit"});
+      /* if (convertHandler.getNum(input) === "Invalid Quantity" && convertHandler.getUnit(input) === "Invalid Unit Type")  res.json({"string": "Error - Invalid Qty & Unit"}); */
       if (convertHandler.getNum(input) === "Invalid Quantity")  res.json({"string": `Error ${input} - Invalid Qty`});
       if (convertHandler.getUnit(input) === "Invalid Unit Type")  res.json({"string": `Error ${input}- Invalid Unit`});
       if (convertHandler.getNum(input) !== "Invalid Quantity" && convertHandler.getUnit(input) !== "Invalid Unit Type")res.json({
