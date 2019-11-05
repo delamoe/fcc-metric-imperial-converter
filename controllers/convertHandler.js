@@ -90,6 +90,8 @@ function ConvertHandler() {
     return result.toFixed(5);
   };
 
+  //small comment....
+
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
     // "string":"85 kilograms converts to 187.39308 pounds"
     var result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
