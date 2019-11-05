@@ -34,23 +34,61 @@ suite('Functional Tests', function() {
       });
       
       test('Convert 32g (invalid input unit)', function(done) {
-        
-        //done();
+        chai.request(server)
+         .get('/api/convert')
+         .query({input: '32g'})
+         .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body.initNum, 32);
+           assert.equal(res.body.initUnit, 'g');
+           assert.equal(res.body.returnNum, "Invalid Numerical Input");
+           assert.equal(res.body.returnUnit, "Invalid Character Input");
+           done();
+         });
       });
       
       test('Convert 3/7.2/4kg (invalid number)', function(done) {
+        chai.request(server)
+         .get('/api/convert')
+         .query({input: '3/7.2/4kg'})
+         .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body.initNum, 3/7.2/4);
+           assert.equal(res.body.initUnit, 'kg');
+           assert.approximately(res.body.returnNum, ((3/7.2/4)/0.453592), 0.1);
+           assert.equal(res.body.returnUnit, 'lbs');
+           done();
+         });
         
         //done();
       });  
       
       test('Convert 3/7.2/4kilomegagram (invalid number and unit)', function(done) {
-        
-        //done();
+        chai.request(server)
+         .get('/api/convert')
+         .query({input: '3/7.2/4kilomegagram'})
+         .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body.initNum, 3/7.2/4);
+           assert.equal(res.body.initUnit, "Invalid Character Input");
+           assert.equal(res.body.returnNum, "Invalid Numerical Input");
+           assert.equal(res.body.returnUnit, "Invalid Character Input");
+           done();
+         });
       });
       
       test('Convert kg (no number)', function(done) {
-        
-        //done();
+        chai.request(server)
+         .get('/api/convert')
+         .query({input: 'kg'})
+         .end(function(err, res){
+           assert.equal(res.status, 200);
+           assert.equal(res.body.initNum, 32);
+           assert.equal(res.body.initUnit, 'g');
+           assert.equal(res.body.returnNum, "Invalid Numerical Input");
+           assert.equal(res.body.returnUnit, "Invalid Character Input");
+           done();
+         });
       });
       
     });

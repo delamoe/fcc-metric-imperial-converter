@@ -43,7 +43,7 @@ function ConvertHandler() {
     var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
     var output = ['l', 'gal', 'km', 'mi', 'kg', 'lbs'];
 
-    var result = output[input.indexOf(initUnit)];
+    var result = output[input.indexOf(initUnit)] || "Invalid Character Input";
 
     return result;
   };
@@ -52,7 +52,7 @@ function ConvertHandler() {
     var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
     var output = ['gallon', 'liter', 'mile', 'kilometer', 'pound', 'kilogram'];
 
-    var result = output[input.indexOf(unit)];
+    var result = output[input.indexOf(unit)] || "Invalid Character Input";
     return result;
   };
 
@@ -82,7 +82,7 @@ function ConvertHandler() {
         result = initNum / lbsToKg;
         break;  
       default:
-        console.log(`switch says ${initUnit}`);
+        result = "Invalid Numerical Input";
         break;
     }
     console.log(`result = ${result}`);
@@ -91,7 +91,8 @@ function ConvertHandler() {
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-    var result;
+    // "string":"85 kilograms converts to 187.39308 pounds"
+    var result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
 
     return result;
   };
