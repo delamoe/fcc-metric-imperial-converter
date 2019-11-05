@@ -87,7 +87,7 @@ function ConvertHandler() {
     }
     console.log(`result = ${result}`);
 
-    return result;
+    return result.toFixed(5);
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
