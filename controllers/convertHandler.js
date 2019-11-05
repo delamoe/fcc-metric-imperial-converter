@@ -85,7 +85,7 @@ function ConvertHandler() {
         result = "Invalid Numerical Input";
         break;
     }
-    console.log(`result = ${result}`);
+    console.log(`result = ${result.toFixed(5)}`);
 
     return result.toFixed(5);
   };
