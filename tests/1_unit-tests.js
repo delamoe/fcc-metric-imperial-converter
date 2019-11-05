@@ -57,7 +57,7 @@ suite('Unit Tests', function () {
   suite('Function convertHandler.getUnit(input)', function () {
 
     test('For Each Valid Unit Inputs', function (done) {
-      var input = '3.2FGUL.,JMOKMNB';
+      var input = '3.2gal';
       var expected = ['gal', 'l', 'mi', 'km', 'lb', 'kg'/* , 'GAL', 'L', 'MI', 'KM', 'LB', 'KG' */];
       assert.include(expected, convertHandler.getUnit(input));
       done();

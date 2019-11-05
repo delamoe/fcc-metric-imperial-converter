@@ -8,14 +8,20 @@
 
 function ConvertHandler() {
   this.sanitizeString = function (str) {
-    var regex = (/(?:lbs|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
-    str = str.match(regex).join('');
-    return str.trim();
+    var regex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
+    // will return null on bad input 
+    // var regex = (/(?:lbs|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
+    console.log(`sanitizeString: ${str.match(regex)}`);
+    if (str.match(regex) === null) {
+      return 'No Valid Input';
+    } else {
+      return str.match(regex).join('').trim();
+    }
   }
 
   this.getNum = function (input) {
     var sanitizedStr = this.sanitizeString(input);
-    console.log(`getNum sanStr: `, sanitizedStr);    
+    console.log(`getNum sanStr: `, sanitizedStr);
     var regex =
       (/(?:[-\+]{0,1}\d*[-\+.\/*]*\d+)*/);
     //check for a digit
@@ -98,8 +104,6 @@ function ConvertHandler() {
     ? result
     : +result.toFixed(5);
   };
-
-  //small comment....
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
     // "string":"85 kilograms converts to 187.39308 pounds"
