@@ -24,11 +24,6 @@ app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
-
-/* app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, 'README.md'))
-}) */
-
 // git-glitch sync code KEEP ABOVE OTHER ROUTES
 // **************************************************
 app.post('/deploy', (request, response) => {
@@ -41,14 +36,14 @@ app.post('/deploy', (request, response) => {
     response.status(200).send('Push was not to glitch branch, so did not deploy.')
     return
   }
-
+  
   const repoUrl = request.body.repository.git_url
-
+  
   console.log('Fetching latest changes.')
   const output = execSync(
     `git checkout -- ./ && git pull -X theirs ${repoUrl} glitch && refresh`
-  ).toString()
-  console.log(output)
+    ).toString()
+    console.log(output)
   response.status(200).send()
 })
 // **************************************************
@@ -110,7 +105,12 @@ const listener = app.listen(process.env.PORT, function () {
           console.log(error);
       }
     }, 1500);
-  // }
+    // }
 }); */
 
 module.exports = app; //for testing
+
+
+/* app.get('/', (request, response) => {
+  response.sendFile(path.join(__dirname, 'README.md'))
+}) */
