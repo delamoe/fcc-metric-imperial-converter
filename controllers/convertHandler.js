@@ -27,19 +27,21 @@ function ConvertHandler() {
     // start by sanitizing the user input and
     // checking for valid 'mathy' chars with regex
     // WooHoo!!
-    var regex = (/(?:[\d\-\+])(?:[\-\+\.\/\*\%]{0,1}\d+)*/);
-    // this will filter out trailing operators
-    var maths = input.match(regex);
-    console.log(`maths: ${maths}, maths[0]: ${maths === null ? null : maths[0]}`);
+    var anyMathyChars = (/(?:[\d\-\+])(?:[\-\+\.\/\*\%]{0,1}\d+)*/);
+    // this will filter out leading, trailing and double operators
+    var maths = input.match(anyMathyChars);
     // null check
+    // if no digits or 'mathy' chars, default is 1
     if (maths === null) return 1;
+    if (input.match(/[\-\+\.\/\*\%]{2,}/)) return 'invalid number';
     // check for at least one digit
+    console.log(`maths: ${maths}, maths[0].match(/\d/), maths[0].match(/[\-\+\/\*\.\%]/): ${maths === null ? null : maths[0].match(/\d/), maths[0].match(/[\-\+\/\*\.\%]/)}`);
     var result = maths[0].match(/\d/)
       // if found, assign to result and apply
       // the dreaded eval: Mwahahahaahhaha
       ? eval(maths[0])
       // check for other 'mathy' chars
-      : maths[0].match(/[\-\+\/\*\.\%]/)
+      : maths[0].match(/[\-\+\/\*\.\%]/) !== null
         // if found...
         ? 'invalid number'
         // if no digits or 'mathy' chars, default is 1
@@ -52,14 +54,14 @@ function ConvertHandler() {
     var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
     var regex = (/(?:lbs|gal|mi|km|kg|l)\b/i);
     var sanitizedStr = input.match(regex);
-    console.log(`getUnit sanStr: `, sanitizedStr);
+    // console.log(`getUnit sanStr: `, sanitizedStr);
     if (sanitizedStr === null) return 'invalid unit';
     // returns the first usable match
-    console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
+    // console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
     var result = sanitizedStr[0].match(regex) === null
       ? "invalid unit"
       : sanitizedStr[0].match(regex)[0].toLowerCase();
-    console.log(`getUnit = ${result}`);
+    // console.log(`getUnit = ${result}`);
     return result;
   }
 
@@ -113,11 +115,11 @@ function ConvertHandler() {
         result = 'unknown input error';
         break;
     }
-    console.log(`typeof result: ${typeof result}`);
+    // console.log(`typeof result: ${typeof result}`);
 
-    console.log(`convert = ${result === 'unknown input error'
-      ? result
-      : +result.toFixed(5)}`);
+    // console.log(`convert = ${result === 'unknown input error'
+    //   ? result
+    //   : +result.toFixed(5)}`);
 
     return result === 'unknown input error'
       ? result

@@ -149,3 +149,15 @@ suite('Unit Tests', function () {
 
   });
 });
+
+suite('Extra Unit Tests', function () {
+
+  suite('Function convertHandler.getNum(input)', function () {
+
+    test('Incorrect Character ** // ++ -- ', function (done) {
+      var input = '/6/*+-%5//L';
+      assert.isNotNumber(convertHandler.getNum(input));
+      done();
+    });
+  });
+});
