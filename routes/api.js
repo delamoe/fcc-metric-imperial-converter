@@ -23,20 +23,17 @@ module.exports = function (app) {
       var returnNum = convertHandler.convert(initNum, initUnit);
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(input, initNum, initUnit, returnNum, returnUnit);
-
-      var /* json;
-      if (initNum === "invalid number" && initUnit === "invalid unit") json = {"error": "invalid number and unit"};
-      else if (initNum === "invalid number") json = {"error":"invalid number"};
-      else if (initUnit === "invalid unit") json = {"error":"invalid unit"};
-      else  */json = {
-        "initNum": initNum,
-        "initUnit": initUnit,
-        "returnNum": returnNum,
-        "returnUnit": returnUnit,
-        "string": toString
-      };      
-
-      res.json(json);
+      
+      res.json(
+        { 
+          "test": {
+            "initNum": initNum,
+            "initUnit": initUnit,
+            "returnNum": returnNum,
+            "returnUnit": returnUnit
+        },
+        "message": toString.message,
+        "string": toString.string }
+        );
     });
-
 };

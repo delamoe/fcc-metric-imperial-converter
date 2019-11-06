@@ -40,10 +40,10 @@ function ConvertHandler() {
       ? eval(maths[0])
       // check for other 'mathy' chars
       : maths[0].match(/[\-\+\/\*\.\%]/)
-      // if found...
-      ? 'invalid number'
-      // if no digits or 'mathy' chars, default is 1
-      : 1;
+        // if found...
+        ? 'invalid number'
+        // if no digits or 'mathy' chars, default is 1
+        : 1;
     console.log(`getNum = ${result}`);
     return result;
   }
@@ -127,11 +127,30 @@ function ConvertHandler() {
   this.getString = function (input, initNum, initUnit, returnNum, returnUnit) {
     // "string":"85 kilograms converts to 187.39308 pounds"
     // "Error - ${input}"
-    var result;
-    if (initNum === "invalid number" || initUnit === "invalid unit") result = `error - ${input}`;
-    else result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+    var result = {};
+    if (initNum === "invalid number" || initUnit === "invalid unit") result.string = `error - ${input}`;
+    else result.string = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+    
+    if (initNum === "invalid number" && initUnit === "invalid unit") result.message = { "error": "invalid number and unit"};
+
+    else if (initNum === "invalid number") result.message = { "error": "invalid number"};
+
+    else if (initUnit === "invalid unit") result.message = { "error": "invalid unit"};
+
+    else result.message = {
+      "initNum": initNum,
+      "initUnit": initUnit,
+      "returnNum": returnNum,
+      "returnUnit": returnUnit,
+      "string": `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`
+    }
 
     return result;
+  };
+
+  this.getJson = function (input, initNum, initUnit, returnNum, returnUnit) {
+
+    
   };
 
 }
