@@ -50,15 +50,17 @@ function ConvertHandler() {
 
   this.getUnit = function (input) {
     // var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
-    var regex = (/(?:lbs|gal|mi|km|kg|l)\b/i);
-    var sanitizedStr = input.match(regex);
-    console.log(`getUnit sanStr: `, sanitizedStr);
-    if (sanitizedStr === null) return 'invalid unit';
-    // returns the first usable match
-    console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
-    var result = sanitizedStr[0].match(regex) === null
+    var validUnits = (/^[\d\/\+\-\*\%\.]*(?:lbs|gal|mi|km|kg|l)$/i);
+    var regex = (/(?:lbs|gal|mi|km|kg|l)$/i);
+    var unitStr = input.match(validUnits);
+    console.log(`getUnit unitStr: `, unitStr);    
+    if (unitStr === null) return 'invalid unit';
+    // return the usable match
+    var unit = unitStr[0].match(regex);
+    console.log(`unit: ${unit}`)
+    var result = unitStr[0].match(regex) === null
       ? "invalid unit"
-      : sanitizedStr[0].match(regex)[0].toLowerCase();
+      : unitStr[0].match(regex)[0].toLowerCase();
     console.log(`getUnit = ${result}`);
     return result;
   }
