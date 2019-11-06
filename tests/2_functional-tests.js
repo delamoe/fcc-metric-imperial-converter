@@ -56,7 +56,7 @@ suite('Functional Tests', function () {
             assert.equal(res.body.test.initNum, 3 / 7.2 / 4);
             assert.equal(res.body.test.initUnit, 'kg');
             assert.approximately(res.body.test.returnNum, ((3 / 7.2 / 4) / 0.453592), 0.1);
-            assert.equal(res.body.test.returnUnit, 'lb');
+            assert.equal(res.body.test.returnUnit, 'lbs');
             done();
           });
 
@@ -86,7 +86,7 @@ suite('Functional Tests', function () {
             assert.equal(res.body.test.initNum, 1);
             assert.equal(res.body.test.initUnit, "kg");
             assert.approximately(res.body.test.returnNum, 1 / 0.453592, 0.1);
-            assert.equal(res.body.test.returnUnit, "lb");
+            assert.equal(res.body.test.returnUnit, "lbs");
             done();
           });
       });

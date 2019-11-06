@@ -8,9 +8,9 @@
 
 function ConvertHandler() {
   // this.sanitizeString = function (str) {
-  //   // var regex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
+  //   // var regex = (/[0-9\-\+\*\/\.]+(?:lbss|gal|mi|km|kg|l)$/gi);
   //   // will return null on bad input 
-  //   var regex = (/(?:lbs|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
+  //   var regex = (/(?:lbss|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
   //   console.log(`sanitizeString: ${str.match(regex)}`);
   //   if (str.match(regex) === null) {
   //     return 'No Valid Input';
@@ -21,7 +21,7 @@ function ConvertHandler() {
 
   this.getNum = function (input) {
     /* var fullRegex =
-        (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);*/
+        (/[0-9\-\+\*\/\.]+(?:lbss|gal|mi|km|kg|l)$/gi);*/
     // this function should return either
     // a valid number input, 1 or the string 'invalid number'
     // start by sanitizing the user input and
@@ -52,20 +52,20 @@ function ConvertHandler() {
     // var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
     var regex = (/(?:lbs|gal|mi|km|kg|l)\b/i);
     var sanitizedStr = input.match(regex);
-    // console.log(`getUnit sanStr: `, sanitizedStr);
+    console.log(`getUnit sanStr: `, sanitizedStr);
     if (sanitizedStr === null) return 'invalid unit';
     // returns the first usable match
-    // console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
+    console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
     var result = sanitizedStr[0].match(regex) === null
       ? "invalid unit"
       : sanitizedStr[0].match(regex)[0].toLowerCase();
-    // console.log(`getUnit = ${result}`);
+    console.log(`getUnit = ${result}`);
     return result;
   }
 
   this.getReturnUnit = function (initUnit) {
-    var input = ['gal', 'l', 'mi', 'km', 'lb', 'kg'];
-    var output = ['l', 'gal', 'km', 'mi', 'kg', 'lb'];
+    var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
+    var output = ['l', 'gal', 'km', 'mi', 'kg', 'lbs'];
 
     var result = output[input.indexOf(initUnit)] || "invalid unit";
 
@@ -73,7 +73,7 @@ function ConvertHandler() {
   };
 
   this.spellOutUnit = function (unit) {
-    var input = ['gal', 'l', 'mi', 'km', 'lb', 'kg'];
+    var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
     var output = ['gallons', 'liters', 'miles', 'kilometers', 'pounds', 'kilograms'];
 
     var result = output[input.indexOf(unit)] || "invalid unit";
@@ -82,7 +82,7 @@ function ConvertHandler() {
 
   this.convert = function (initNum, initUnit) {
     const galToL = 3.78541;
-    const lbToKg = 0.453592;
+    const lbsToKg = 0.453592;
     const miToKm = 1.60934;
 
     // if (initNum === 'invalid number' && initUnit === 'invalid unit') return 'invalid number and invalid unit';
@@ -103,11 +103,11 @@ function ConvertHandler() {
       case 'km':
         result = initNum / miToKm;
         break;
-      case 'lb':
-        result = initNum * lbToKg;
+      case 'lbs':
+        result = initNum * lbsToKg;
         break;
       case 'kg':
-        result = initNum / lbToKg;
+        result = initNum / lbsToKg;
         break;
       default:
         result = 'unknown input error';
