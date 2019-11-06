@@ -1,7 +1,7 @@
 {
-  "name": "delamoe-git-glitched",
+  "name": "delamoe-fcc-metric-imperial-converter",
   "version": "0.0.1",
-  "description": "Deploy to Glitch using git.",
+  "description": "metric-imperial-converter",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -21,7 +21,7 @@
     "node": "8.x"
   },
   "repository": {
-    "url": "https://github.com/noise-machines/git-glitched"
+    "url": "https://delamoe-fcc-metric-imperial-converter.glitch.me"
   },
   "license": "MIT",
   "keywords": [
