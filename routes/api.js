@@ -24,14 +24,14 @@ module.exports = function (app) {
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(input, initNum, initUnit, returnNum, returnUnit);
       var data = {
+        "message": toString.message,
+        "string": toString.string,
         "test": {
           "initNum": initNum,
           "initUnit": initUnit,
           "returnNum": returnNum,
           "returnUnit": returnUnit
-        },
-        "message": toString.message,
-        "string": toString.string
+        }
       };
       console.log(JSON.stringify(data.message));
 
