@@ -72,11 +72,11 @@ function ConvertHandler() {
     return result;
   };
 
-  this.spellOutUnit = function (unit) {
+  this.spellOutUnit = function (unit, qty) {
     var input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
-    var output = ['gallons', 'liters', 'miles', 'kilometers', 'pounds', 'kilograms'];
-
-    var result = output[input.indexOf(unit)] || "invalid unit";
+    var output = ['gallon', 'liter', 'mile', 'kilometer', 'pound', 'kilogram'];
+    var plural = (Math.abs(qty) === 1) ? "" : "s";
+    var result = output[input.indexOf(unit)] + plural || "invalid unit";
     return result;
   };
 
@@ -129,7 +129,7 @@ function ConvertHandler() {
     // "Error - ${input}"
     var result = {};
     if (initNum === "invalid number" || initUnit === "invalid unit") result.string = `error - ${input}`;
-    else result.string = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+    else result.string = `${initNum} ${this.spellOutUnit(initUnit, returnNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`;
 
     if (initNum === "invalid number" && initUnit === "invalid unit") result.message = { "error": "invalid number and unit" };
 
@@ -142,7 +142,7 @@ function ConvertHandler() {
       "initUnit": initUnit,
       "returnNum": returnNum,
       "returnUnit": returnUnit,
-      "string": `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`
+      "string": `${initNum} ${this.spellOutUnit(initUnit, returnNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`
     }
 
     return result;
