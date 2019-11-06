@@ -129,7 +129,7 @@ function ConvertHandler() {
     // "Error - ${input}"
     var result = {};
     if (initNum === "invalid number" || initUnit === "invalid unit") result.string = `error - ${input}`;
-    else result.string = `${initNum} ${this.spellOutUnit(initUnit, returnNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`;
+    else result.string = `${initNum} ${this.spellOutUnit(initUnit, initNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`;
 
     if (initNum === "invalid number" && initUnit === "invalid unit") result.message = { "error": "invalid number and unit" };
 
@@ -142,7 +142,7 @@ function ConvertHandler() {
       "initUnit": initUnit,
       "returnNum": returnNum,
       "returnUnit": returnUnit,
-      "string": `${initNum} ${this.spellOutUnit(initUnit, returnNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`
+      "string": `${initNum} ${this.spellOutUnit(initUnit, initNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`
     }
 
     return result;
