@@ -7,51 +7,67 @@
 */
 
 function ConvertHandler() {
-  this.sanitizeString = function (str) {
-    var regex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
-    // will return null on bad input 
-    // var regex = (/(?:lbs|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
-    console.log(`sanitizeString: ${str.match(regex)}`);
-    if (str.match(regex) === null) {
-      return 'No Valid Input';
-    } else {
-      return str.match(regex).join('').trim();
-    }
-  }
+  // this.sanitizeString = function (str) {
+  //   // var regex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
+  //   // will return null on bad input 
+  //   var regex = (/(?:lbs|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
+  //   console.log(`sanitizeString: ${str.match(regex)}`);
+  //   if (str.match(regex) === null) {
+  //     return 'No Valid Input';
+  //   } else {
+  //     return str.match(regex).join('').trim();
+  //   }
+  // }
 
   this.getNum = function (input) {
-    var sanitizedStr = this.sanitizeString(input);
-    console.log(`getNum sanStr: `, sanitizedStr);
-    var regex =
-      (/(?:[-\+]{0,1}\d*[-\+.\/*]*\d+)*/);
-    //check for a digit
-    var result = sanitizedStr.match(/\d/)
-      // if found, remove all non-math-related
-      // chars apply the dreaded eval: Mwahahahaahhaha
-      ? eval(sanitizedStr.match(regex)[0])
-      // if no digits
-      : 'Invalid Quantity';
+    /* var fullRegex =
+        (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);*/
+    // this function should return either
+    // a valid number input, 1 or the string 'invalid number'
+    // start by sanitizing the user input and
+    // checking for valid 'mathy' chars with regex
+    // WooHoo!!
+    var regex = (/(?:[\d\-\+])(?:[\-\+\.\/\*\%]{0,1}\d+)*/);
+    // this will filter out trailing operators
+    var maths = input.match(regex);
+    console.log(`maths: ${maths}, maths[0]: ${maths === null ? null : maths[0]}`);
+    // null check
+    if (maths === null) return 1;
+    // check for at least one digit
+    var result = maths[0].match(/\d/)
+      // if found, assign to result and apply
+      // the dreaded eval: Mwahahahaahhaha
+      ? eval(maths[0])
+      // check for other 'mathy' chars
+      : maths[0].match(/[\-\+\/\*\.\%]/)
+      // if found...
+      ? 'invalid number'
+      // if no digits or 'mathy' chars, default is 1
+      : 1;
     console.log(`getNum = ${result}`);
     return result;
   }
 
   this.getUnit = function (input) {
-    var sanitizedStr = this.sanitizeString(input);
-        console.log(`getUnit sanStr: `, sanitizedStr);
+    var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
     var regex = (/(?:lbs|gal|mi|km|kg|l)\b/i);
+    var sanitizedStr = input.match(regex);
+    console.log(`getUnit sanStr: `, sanitizedStr);
+    if (sanitizedStr === null) return 'invalid unit';
     // returns the first usable match
-    console.log(`getUnit match = ${sanitizedStr.match(regex)}`);
-    var result = sanitizedStr.match(regex) === null
-      ? "Invalid Unit Type"
-      : sanitizedStr.match(regex)[0].toLowerCase();
+    console.log(`getUnit match = ${sanitizedStr[0].match(regex)}`);
+    var result = sanitizedStr[0].match(regex) === null
+      ? "invalid unit"
+      : sanitizedStr[0].match(regex)[0].toLowerCase();
     console.log(`getUnit = ${result}`);
     return result;
   }
+
   this.getReturnUnit = function (initUnit) {
     var input = ['gal', 'l', 'mi', 'km', 'lb', 'kg'];
     var output = ['l', 'gal', 'km', 'mi', 'kg', 'lb'];
 
-    var result = output[input.indexOf(initUnit)] || "Invalid Unit Type";
+    var result = output[input.indexOf(initUnit)] || "invalid unit";
 
     return result;
   };
@@ -60,7 +76,7 @@ function ConvertHandler() {
     var input = ['gal', 'l', 'mi', 'km', 'lb', 'kg'];
     var output = ['gallons', 'liters', 'miles', 'kilometers', 'pounds', 'kilograms'];
 
-    var result = output[input.indexOf(unit)] || "Invalid Unit Type";
+    var result = output[input.indexOf(unit)] || "invalid unit";
     return result;
   };
 
@@ -69,8 +85,10 @@ function ConvertHandler() {
     const lbToKg = 0.453592;
     const miToKm = 1.60934;
 
-    if (typeof initNum != 'number') return 'Invalid Quantity';
-    
+    // if (initNum === 'invalid number' && initUnit === 'invalid unit') return 'invalid number and invalid unit';
+    if (initNum === 'invalid number') return 'invalid number';
+    if (initUnit === 'invalid unit') return 'invalid number';
+
     var result;
     switch (initUnit) {
       case 'gal':
@@ -92,17 +110,18 @@ function ConvertHandler() {
         result = initNum / lbToKg;
         break;
       default:
-        result = 'Invalid Quantity';
+        result = 'unknown input error';
         break;
     }
     console.log(`typeof result: ${typeof result}`);
-    console.log(`convert = ${result === 'Invalid Quantity'
-    ? result
-    : +result.toFixed(5)}`);
 
-    return result === 'Invalid Quantity'
-    ? result
-    : +result.toFixed(5);
+    console.log(`convert = ${result === 'unknown input error'
+      ? result
+      : +result.toFixed(5)}`);
+
+    return result === 'unknown input error'
+      ? result
+      : +result.toFixed(5);
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {

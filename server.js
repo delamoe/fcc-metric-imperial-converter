@@ -16,9 +16,13 @@ var apiRoutes = require('./routes/api.js');
 var fccTestingRoutes = require('./routes/fcctesting.js');
 var runner = require('./test-runner');
 
-app.use(bodyParser.json())
+var helmet = require('helmet');
 
+app.use(helmet());
+
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 

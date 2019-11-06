@@ -48,7 +48,7 @@ suite('Unit Tests', function () {
 
     test('No Numerical Input', function (done) {
       var input = 'ten L';
-      assert.isNotNumber(convertHandler.getNum(input));
+      assert.equal(convertHandler.getNum(input), 1);
       done();
     });
 
