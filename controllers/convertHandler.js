@@ -33,25 +33,23 @@ function ConvertHandler() {
     // null check
     // if no digits or 'mathy' chars, default is 1
     if (maths === null) return 1;
-    if (input.match(/[\-\+\.\/\*\%]{2,}/)) return 'invalid number';
+    // any leading or multiple operators are not allowed
+    // this input string does not get used again 
+    if (input.match(/^[\.\/\*\%]|[\-\+\.\/\*\%]{2,}/))
+      return 'invalid number';
     // check for at least one digit
-    console.log(`maths: ${maths}, maths[0].match(/\d/), maths[0].match(/[\-\+\/\*\.\%]/): ${maths === null ? null : maths[0].match(/\d/), maths[0].match(/[\-\+\/\*\.\%]/)}`);
     var result = maths[0].match(/\d/)
       // if found, assign to result and apply
       // the dreaded eval: Mwahahahaahhaha
       ? eval(maths[0])
-      // check for other 'mathy' chars
-      : maths[0].match(/[\-\+\/\*\.\%]/) !== null
-        // if found...
-        ? 'invalid number'
-        // if no digits or 'mathy' chars, default is 1
-        : 1;
+      // if no digits or 'mathy' chars, default is 1
+      : 1;
     console.log(`getNum = ${result}`);
     return result;
   }
 
   this.getUnit = function (input) {
-    var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
+    // var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
     var regex = (/(?:lbs|gal|mi|km|kg|l)\b/i);
     var sanitizedStr = input.match(regex);
     // console.log(`getUnit sanStr: `, sanitizedStr);
@@ -132,12 +130,12 @@ function ConvertHandler() {
     var result = {};
     if (initNum === "invalid number" || initUnit === "invalid unit") result.string = `error - ${input}`;
     else result.string = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
-    
-    if (initNum === "invalid number" && initUnit === "invalid unit") result.message = { "error": "invalid number and unit"};
 
-    else if (initNum === "invalid number") result.message = { "error": "invalid number"};
+    if (initNum === "invalid number" && initUnit === "invalid unit") result.message = { "error": "invalid number and unit" };
 
-    else if (initUnit === "invalid unit") result.message = { "error": "invalid unit"};
+    else if (initNum === "invalid number") result.message = { "error": "invalid number" };
+
+    else if (initUnit === "invalid unit") result.message = { "error": "invalid unit" };
 
     else result.message = {
       "initNum": initNum,
