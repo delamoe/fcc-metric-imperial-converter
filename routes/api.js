@@ -8,7 +8,7 @@
 
 'use strict';
 
-var expect = require('chai').expect;
+// var expect = require('chai').expect;
 var ConvertHandler = require('../controllers/convertHandler.js');
 
 module.exports = function (app) {
@@ -33,8 +33,6 @@ module.exports = function (app) {
           "returnUnit": returnUnit
         }
       };
-      console.log(JSON.stringify(data.message));
-
         res.json(data);
     });
 };
