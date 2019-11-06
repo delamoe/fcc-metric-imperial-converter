@@ -23,17 +23,18 @@ module.exports = function (app) {
       var returnNum = convertHandler.convert(initNum, initUnit);
       var returnUnit = convertHandler.getReturnUnit(initUnit);
       var toString = convertHandler.getString(input, initNum, initUnit, returnNum, returnUnit);
-      
-      res.json(
-        { 
-          "test": {
-            "initNum": initNum,
-            "initUnit": initUnit,
-            "returnNum": returnNum,
-            "returnUnit": returnUnit
+      var data = {
+        "test": {
+          "initNum": initNum,
+          "initUnit": initUnit,
+          "returnNum": returnNum,
+          "returnUnit": returnUnit
         },
         "message": toString.message,
-        "string": toString.string }
-        );
+        "string": toString.string
+      };
+      console.log(JSON.stringify(data.message));
+
+        res.json(data);
     });
 };

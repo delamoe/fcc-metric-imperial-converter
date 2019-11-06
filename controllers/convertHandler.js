@@ -148,11 +148,6 @@ function ConvertHandler() {
     return result;
   };
 
-  this.getJson = function (input, initNum, initUnit, returnNum, returnUnit) {
-
-    
-  };
-
 }
 
 module.exports = ConvertHandler;
