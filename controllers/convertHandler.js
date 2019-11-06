@@ -7,21 +7,8 @@
 */
 
 function ConvertHandler() {
-  // this.sanitizeString = function (str) {
-  //   // var regex = (/[0-9\-\+\*\/\.]+(?:lbss|gal|mi|km|kg|l)$/gi);
-  //   // will return null on bad input 
-  //   var regex = (/(?:lbss|gal|mi|km|kg|l)\b|[0-9\-\+\*\/\.]/gi);
-  //   console.log(`sanitizeString: ${str.match(regex)}`);
-  //   if (str.match(regex) === null) {
-  //     return 'No Valid Input';
-  //   } else {
-  //     return str.match(regex).join('').trim();
-  //   }
-  // }
 
   this.getNum = function (input) {
-    /* var fullRegex =
-        (/[0-9\-\+\*\/\.]+(?:lbss|gal|mi|km|kg|l)$/gi);*/
     // this function should return either
     // a valid number input, 1 or the string 'invalid number'
     // start by sanitizing the user input and
@@ -44,24 +31,23 @@ function ConvertHandler() {
       ? eval(maths[0])
       // if no digits or 'mathy' chars, default is 1
       : 1;
-    console.log(`getNum = ${result}`);
+    // console.log(`getNum = ${result}`);
     return result;
   }
 
   this.getUnit = function (input) {
-    // var fullRegex = (/[0-9\-\+\*\/\.]+(?:lbs|gal|mi|km|kg|l)$/gi);
     var validUnits = (/^[\d\/\+\-\*\%\.]*(?:lbs|gal|mi|km|kg|l)$/i);
     var regex = (/(?:lbs|gal|mi|km|kg|l)$/i);
     var unitStr = input.match(validUnits);
-    console.log(`getUnit unitStr: `, unitStr);    
+    // console.log(`getUnit unitStr: `, unitStr);    
     if (unitStr === null) return 'invalid unit';
     // return the usable match
     var unit = unitStr[0].match(regex);
-    console.log(`unit: ${unit}`)
+    // console.log(`unit: ${unit}`)
     var result = unitStr[0].match(regex) === null
       ? "invalid unit"
       : unitStr[0].match(regex)[0].toLowerCase();
-    console.log(`getUnit = ${result}`);
+    // console.log(`getUnit = ${result}`);
     return result;
   }
 
@@ -115,11 +101,6 @@ function ConvertHandler() {
         result = 'unknown input error';
         break;
     }
-    // console.log(`typeof result: ${typeof result}`);
-
-    // console.log(`convert = ${result === 'unknown input error'
-    //   ? result
-    //   : +result.toFixed(5)}`);
 
     return result === 'unknown input error'
       ? result
@@ -127,8 +108,6 @@ function ConvertHandler() {
   };
 
   this.getString = function (input, initNum, initUnit, returnNum, returnUnit) {
-    // "string":"85 kilograms converts to 187.39308 pounds"
-    // "Error - ${input}"
     var result = {};
     if (initNum === "invalid number" || initUnit === "invalid unit") result.string = `error - ${input}`;
     else result.string = `${initNum} ${this.spellOutUnit(initUnit, initNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`;
@@ -146,7 +125,6 @@ function ConvertHandler() {
       "returnUnit": returnUnit,
       "string": `${initNum} ${this.spellOutUnit(initUnit, initNum)} converts to ${returnNum} ${this.spellOutUnit(returnUnit, returnNum)}`
     }
-
     return result;
   };
 
